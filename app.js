@@ -35,18 +35,23 @@ app.use(function(req, res, next) {
 var routes = require('./routes/index');
 var account = require('./routes/account');
 var api = require('./routes/api');
-var play = require('./routes/play');
-var login = require('./routes/login');
-var register = require('./routes/register');
+var play = require('./routes/play');//understood
+var login = require('./routes/login');//understood
+var register = require('./routes/register');//understood
+var connectwallet= require("./routes/walletlogin.js")
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json()); // Parse JSON requests
+// app.use(express.urlencoded({ extended: true })); 
 app.use(cookieParser('S3CRE7'));
 app.use(flash());
 
@@ -64,32 +69,37 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Route implementation */
-// app.use('/', routes);
-// app.use('/login', login);
-// app.use('/register', register);
-// app.use('/account', account);
-// app.use('/play', play);
-// app.use('/api', api);
+app.use('/', routes);
+app.use('/login', login);
+app.use('/register', register);
+app.use('/account', account);
+app.use('/play', play);
 app.use('/api', api);
+app.use('/api', api);
+app.use('/api',connectwallet)
 
 require('./config/errorHandlers.js')(app);
 
 var server;
 
-if (process.env.APP_ENV == 'development') {
-    server = require('http').createServer(app).listen(8050, function() {
-        console.log("server is listening on port 8050")
-    });
-} else {
-    var options = {
-        key: fs.readFileSync('./certs/file.pem'),
-        cert: fs.readFileSync('./certs/file.crt')
-    };
-    server = require('https').createServer(options, app).listen(8050, function() {
-        console.log("server is listening on the port 8050")
-    });
-}
+// if (process.env.APP_ENV == 'development') {
+//     server = require('http').createServer(app).listen(8080, function() {
+//         console.log("server is listening on port 8050")
+//     });
+// } else {
+//     var options = {
+//         key: fs.readFileSync('./certs/file.pem'),
+//         cert: fs.readFileSync('./certs/file.crt')
+//     };
+//     server = require('https').createServer(options, app).listen(8080, function() {
+//         console.log("server is listening on the port 8050")
+//     });
+// }
 
-require('./config/socket.js')(server);
+app.listen(8080,(req,res)=>{
+    console.log("server is running")
+})
+
+// require('./config/socket.js')(server);
 
 module.exports = app;

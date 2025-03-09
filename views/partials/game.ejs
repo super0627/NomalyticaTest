@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Chess Game!</h1>
+
+    <% if (user) { %>
+        <p>Player: <strong><%= user.name %></strong></p>
+    <% } else { %>
+        <p>Welcome, Guest! <a href="/login">Login</a> to play.</p>
+    <% } %>
+
+</body>
+</html>
