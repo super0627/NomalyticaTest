@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 var util = require('../config/util.js');
 
 var UserSchema = mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
+    name: {type:String},
+    email: {type:String},
+    password: {type:String},
+    walletAddress: { type: String, unique: true, required: true },
     lastConnection: { type: Date, default: Date.now }
 });
 

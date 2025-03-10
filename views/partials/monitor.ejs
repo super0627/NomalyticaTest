@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; }
+        .container { margin-top: 50px; }
+        .status { padding: 20px; background: white; display: inline-block; border-radius: 8px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Server Monitoring</h1>
+        <div class="status">
+            <h2>MongoDB: <span class="<%= status.mongo === 'success' ? 'success' : 'error' %>"><%= status.mongo %></span></h2>
+            <h2>API: <span class="<%= status.api === 'success' ? 'success' : 'error' %>"><%= status.api %></span></h2>
+        </div>
+    </div>
+</body>
+</html>
